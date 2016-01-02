@@ -141,7 +141,7 @@ func(c *Client) FriendsByUUID(uuid string) ([]map[string]interface{}, error) {
 }
 
 // Internal helper method which queries for friends using a parameterName and a parameterValue. Returns an array of
-// *Friend or nil.
+// map[string]interface{} or nil.
 func(c *Client) friends(parameterName string, parameterValue string) ([]map[string]interface{}, error) {
 	result := &FriendsResponse{}
 	err := c.Query("friends", map[string]string{ parameterName: parameterValue }, result)
