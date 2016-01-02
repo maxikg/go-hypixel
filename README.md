@@ -25,6 +25,7 @@ profile, err := client.KeyInfo()
 
  * `/key` - Statistic and basic information about the used API key
  * `/findGuild` - Gets a guilds id by a player name, a player uuid or a guild name
+ * `/friends` - Get the friend list of a player
 
 ## ToDo
 
