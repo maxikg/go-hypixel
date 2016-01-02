@@ -141,7 +141,7 @@ func(c *Client) FriendsByUUID(uuid string) ([]map[string]interface{}, error) {
 }
 
 // Internal helper method which queries for friends using a parameterName and a parameterValue. Returns an array of
-// map[string]interface{} or nil.
+// map[string]interface{}.
 func(c *Client) friends(parameterName string, parameterValue string) ([]map[string]interface{}, error) {
 	result := &FriendsResponse{}
 	err := c.Query("friends", map[string]string{ parameterName: parameterValue }, result)
@@ -164,7 +164,7 @@ func(c *Client) PlayerByUUID(uuid string) (map[string]interface{}, error) {
 	return c.player("uuid", uuid)
 }
 // Internal helper method which queries for a player using a parameterName and a parameterValue. Returns a
-// map[string]interface{} or nil.
+// map[string]interface{}.
 func(c *Client) player(parameterName string, parameterValue string) (map[string]interface{}, error) {
 	result := &PlayerResponse{}
 	err := c.Query("player", map[string]string{ parameterName: parameterValue }, result)
@@ -188,7 +188,7 @@ func(c *Client) SessionByUUID(uuid string) (map[string]interface{}, error) {
 }
 
 // Internal helper method which queries for a players session using a parameterName and a parameterValue. Returns a
-// map[string]interface{} or nil.
+// map[string]interface{}.
 func(c *Client) session(parameterName string, parameterValue string) (map[string]interface{}, error) {
 	result := &SessionResponse{}
 	err := c.Query("session", map[string]string{ parameterName: parameterValue }, result)
