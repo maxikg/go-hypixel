@@ -5,6 +5,21 @@ go-hypixel is a Go client library for interacting with the [Hypixel API](https:/
 Please note that this is my first go project. My intention is to get familiar with go. Please excuse any insult of the
 aesthetics of the go lang. Please let me know what you think about it.
 
+## Installation
+
+Before you can install the software you need to [install go](https://golang.org/doc/install). The `GOPATH` environment
+variable is required too.
+
+The installation of the library (should be) is pretty simple:
+
+```
+go get github.com/maxikg/go-hypixel/hypixel
+```
+
+Updates can be done using the `-u` option on the `go get`: `go get -u github.com/maxikg/go-hypixel/hypixel`
+
+After the library is installed the import should be resolved.
+
 ## Usage
 
 First import the library:
