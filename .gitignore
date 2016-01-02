@@ -1,0 +1,5 @@
+.idea/
+*.iml
+
+# Local test files
+/*.go
