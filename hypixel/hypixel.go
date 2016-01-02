@@ -118,6 +118,18 @@ func(c *Client) findGuild(parameterName string, parameterValue string) (string, 
 	return result.Guild, nil
 }
 
+// Query a guild by its id. Returns nil if no guild with this id is known.
+func(c *Client) Guild(id string) (map[string]interface{}, error) {
+	result := &GuildResponse{}
+	err := c.Query("guild", map[string]string{ "id": id }, result)
+	if err != nil {
+		return nil, err
+	} else if result.Success == false {
+		return nil, errors.New(result.Cause)
+	}
+	return result.Guild, nil
+}
+
 // Query friends of the player name.
 func(c *Client) FriendsByName(name string) ([]map[string]interface{}, error) {
 	return c.friends("player", name)

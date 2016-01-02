@@ -16,6 +16,14 @@ type GuildIdResponse struct {
 	Success bool     `json:"success"`
 }
 
+// GuildResponse is the bare response of the API containing maybe a guild, maybe a cause and a bool determine if the
+// request was successful.
+type GuildResponse struct {
+	Guild   map[string]interface{} `json:"guild"`
+	Cause   string                 `json:"cause"`
+	Success bool                   `json:"success"`
+}
+
 // FriendsResponse is the bare response of the API containing maybe an array of friends, maybe a cause and a bool
 // determine if the request was successful.
 type FriendsResponse struct {
