@@ -85,3 +85,48 @@ func(c *Client) KeyInfo() (*KeyInfo, error) {
 	}
 	return result.Record, nil
 }
+
+// Find a guild id by an name of a guilds member. Returns an empty string as the id if no guild data is available.
+func(c *Client) FindGuildByPlayer(player string) (string, error) {
+	return c.findGuild("byPlayer", player)
+}
+
+// Find a guild id by an uuid of a guilds member. Returns an empty string as the id if no guild data is available.
+func(c *Client) FindGuildByUuid(uuid string) (string, error) {
+	return c.findGuild("byUuid", uuid)
+}
+
+// Find a guild id by the guilds name. Returns an empty string as the id if no guild data is available.
+func(c *Client) FindGuildByName(name string) (string, error) {
+	return c.findGuild("byName", name)
+}
+
+// Internal helper method which queries for guild information using a parameterName and a parameterValue. Returns an
+// empty string as the id if no guild data is available.
+func(c *Client) findGuild(parameterName string, parameterValue string) (string, error) {
+	req, err := c.CreateRequest("findGuild", map[string]string{ parameterName: parameterValue })
+	if err != nil {
+		return "", err
+	}
+
+	resp, err := c.client.Do(req)
+	if err != nil {
+		return "", err
+	}
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return "", err
+	}
+
+	result := &GuildIdResponse{}
+	err = json.Unmarshal(body, &result)
+	if err != nil {
+		return "", err
+	}
+
+	if result.Success == false {
+		return "", errors.New(result.Cause)
+	}
+	return result.Guild, nil
+}
