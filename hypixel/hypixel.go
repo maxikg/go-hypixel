@@ -56,31 +56,35 @@ func(c *Client) CreateRequest(method string, params map[string]string) (*http.Re
 	return req, nil
 }
 
-// KeyInfo calls the API at /key. It will returns an error or a KeyInfo which contains statistics about the usage of
-// the currently used key.
-func(c *Client) KeyInfo() (*KeyInfo, error) {
-	req, err := c.CreateRequest("key", nil)
+// Query queries the remote API for a specified method, an optional map of parameters and an instance of a struct in
+// which the response will be deserialized.
+func(c *Client) Query(method string, parameters map[string]string, result interface{}) (error) {
+	req, err := c.CreateRequest(method, parameters)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	resp, err := c.client.Do(req)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
+	return json.Unmarshal(body, result)
+}
+
+// KeyInfo calls the API at /key. It will returns an error or a KeyInfo which contains statistics about the usage of
+// the currently used key.
+func(c *Client) KeyInfo() (*KeyInfo, error) {
 	result := &KeyInfoResponse{}
-	err = json.Unmarshal(body, &result)
+	err := c.Query("key", nil, result)
 	if err != nil {
 		return nil, err
-	}
-
-	if result.Success == false {
+	} else if result.Success == false {
 		return nil, errors.New(result.Cause)
 	}
 	return result.Record, nil
@@ -104,28 +108,11 @@ func(c *Client) FindGuildByName(name string) (string, error) {
 // Internal helper method which queries for guild information using a parameterName and a parameterValue. Returns an
 // empty string as the id if no guild data is available.
 func(c *Client) findGuild(parameterName string, parameterValue string) (string, error) {
-	req, err := c.CreateRequest("findGuild", map[string]string{ parameterName: parameterValue })
-	if err != nil {
-		return "", err
-	}
-
-	resp, err := c.client.Do(req)
-	if err != nil {
-		return "", err
-	}
-
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return "", err
-	}
-
 	result := &GuildIdResponse{}
-	err = json.Unmarshal(body, &result)
+	err := c.Query("findGuild", map[string]string{ parameterName: parameterValue }, result)
 	if err != nil {
 		return "", err
-	}
-
-	if result.Success == false {
+	} else if result.Success == false {
 		return "", errors.New(result.Cause)
 	}
 	return result.Guild, nil
@@ -144,28 +131,12 @@ func(c *Client) FriendsByUUID(uuid string) ([]*Friend, error) {
 // Internal helper method which queries for friends using a parameterName and a parameterValue. Returns an array of
 // *Friend or nil.
 func(c *Client) friends(parameterName string, parameterValue string) ([]*Friend, error) {
-	req, err := c.CreateRequest("friends", map[string]string{ parameterName: parameterValue })
-	if err != nil {
-		return nil, err
-	}
-
-	resp, err := c.client.Do(req)
-	if err != nil {
-		return nil, err
-	}
-
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return nil, err
-	}
-
 	result := &FriendsResponse{}
-	err = json.Unmarshal(body, &result)
+	err := c.Query("friends", map[string]string{ parameterName: parameterValue }, result)
+
 	if err != nil {
 		return nil, err
-	}
-
-	if result.Success == false {
+	} else if result.Success == false {
 		return nil, errors.New(result.Cause)
 	}
 	return result.Records, nil
