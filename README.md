@@ -10,7 +10,7 @@ aesthetics of the go lang. Please let me know what you think about it.
 First import the library:
 
 ```go
-import "github.com/maxikg/go-hypixel/hypixel
+import "github.com/maxikg/go-hypixel/hypixel"
 ```
 
 Construct a new Hypixel client to access the various aspects of their public api. For example, to show an api keys
