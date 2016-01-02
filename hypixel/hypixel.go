@@ -153,3 +153,26 @@ func(c *Client) friends(parameterName string, parameterValue string) ([]map[stri
 	}
 	return result.Records, nil
 }
+
+// Query a player by its name.
+func(c *Client) PlayerByName(name string) (map[string]interface{}, error) {
+	return c.player("name", name)
+}
+
+// Query a player by its uuid.
+func(c *Client) PlayerByUUID(uuid string) (map[string]interface{}, error) {
+	return c.player("uuid", uuid)
+}
+// Internal helper method which queries for a player using a parameterName and a parameterValue. Returns a
+// map[string]interface{} or nil.
+func(c *Client) player(parameterName string, parameterValue string) (map[string]interface{}, error) {
+	result := &PlayerResponse{}
+	err := c.Query("player", map[string]string{ parameterName: parameterValue }, result)
+
+	if err != nil {
+		return nil, err
+	} else if result.Success == false {
+		return nil, errors.New(result.Cause)
+	}
+	return result.Player, nil
+}

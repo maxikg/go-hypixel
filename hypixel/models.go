@@ -31,3 +31,11 @@ type FriendsResponse struct {
 	Cause   string                   `json:"cause"`
 	Success bool                     `json:"success"`
 }
+
+// PlayerResponse is the bare response of the API containing maybe the player, maybe a cause and a bool determine if
+// the request was successful.
+type PlayerResponse struct {
+	Player  map[string]interface{} `json:"player"`
+	Cause   string                 `json:"cause"`
+	Success bool                   `json:"success"`
+}

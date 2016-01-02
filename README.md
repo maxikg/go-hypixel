@@ -27,10 +27,10 @@ profile, err := client.KeyInfo()
  * `/findGuild` - Gets a guilds id by a player name, a player uuid or a guild name
  * `/guild` - Gets a guild by its id
  * `/friends` - Get the friend list of a player
+ * `/player` - Get various information about a player
 
 ## ToDo
 
- * Implementing player
  * Implementing session
  * Add tests
 
