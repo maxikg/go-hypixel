@@ -79,7 +79,7 @@ func(c *Client) Query(method string, parameters map[string]string, result interf
 
 // KeyInfo calls the API at /key. It will returns an error or a KeyInfo which contains statistics about the usage of
 // the currently used key.
-func(c *Client) KeyInfo() (*KeyInfo, error) {
+func(c *Client) KeyInfo() (map[string]interface{}, error) {
 	result := &KeyInfoResponse{}
 	err := c.Query("key", nil, result)
 	if err != nil {
@@ -119,18 +119,18 @@ func(c *Client) findGuild(parameterName string, parameterValue string) (string, 
 }
 
 // Query friends of the player name.
-func(c *Client) FriendsByName(name string) ([]*Friend, error) {
+func(c *Client) FriendsByName(name string) ([]map[string]interface{}, error) {
 	return c.friends("player", name)
 }
 
 // Query friends of the player uuid.
-func(c *Client) FriendsByUUID(uuid string) ([]*Friend, error) {
+func(c *Client) FriendsByUUID(uuid string) ([]map[string]interface{}, error) {
 	return c.friends("uuid", uuid)
 }
 
 // Internal helper method which queries for friends using a parameterName and a parameterValue. Returns an array of
 // *Friend or nil.
-func(c *Client) friends(parameterName string, parameterValue string) ([]*Friend, error) {
+func(c *Client) friends(parameterName string, parameterValue string) ([]map[string]interface{}, error) {
 	result := &FriendsResponse{}
 	err := c.Query("friends", map[string]string{ parameterName: parameterValue }, result)
 
