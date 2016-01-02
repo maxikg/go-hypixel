@@ -21,6 +21,11 @@ client := hypixel.NewClient("your-api-key", nil)
 profile, err := client.KeyInfo()
 ```
 
+## Supported API features
+
+ * `/key` - Statistic and basic information about the used API key
+ * `/findGuild` - Gets a guilds id by a player name, a player uuid or a guild name
+
 ## ToDo
 
  * Implementing friends
