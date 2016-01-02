@@ -1,4 +1,4 @@
-# go-hypixel
+# go-hypixel [![Build Status](https://travis-ci.org/maxikg/go-hypixel.svg)](https://travis-ci.org/maxikg/go-hypixel)
 
 go-hypixel is a Go client library for interacting with the [Hypixel API](https://api.hypixel.net/).
 
