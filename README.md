@@ -31,6 +31,7 @@ profile, err := client.KeyInfo()
  * Implementing guild
  * Implementing player
  * Implementing session
+ * Add tests
 
 ## License
 
