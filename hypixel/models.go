@@ -39,3 +39,11 @@ type PlayerResponse struct {
 	Cause   string                 `json:"cause"`
 	Success bool                   `json:"success"`
 }
+
+// SessionResponse is the bare response of the API containing maybe the session, maybe a cause and a bool determine if
+// the request was successful.
+type SessionResponse struct {
+	Session map[string]interface{} `json:"session"`
+	Cause   string                 `json:"cause"`
+	Success bool                   `json:"success"`
+}

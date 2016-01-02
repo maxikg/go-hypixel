@@ -28,10 +28,10 @@ profile, err := client.KeyInfo()
  * `/guild` - Gets a guild by its id
  * `/friends` - Get the friend list of a player
  * `/player` - Get various information about a player
+ * `/session` - Get the current minigame server of a player including some additional information about it
 
 ## ToDo
 
- * Implementing session
  * Add tests
 
 ## License

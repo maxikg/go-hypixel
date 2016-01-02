@@ -176,3 +176,27 @@ func(c *Client) player(parameterName string, parameterValue string) (map[string]
 	}
 	return result.Player, nil
 }
+
+// Query a players session by its name.
+func(c *Client) SessionByName(name string) (map[string]interface{}, error) {
+	return c.session("player", name)
+}
+
+// Query a players session by its uuid.
+func(c *Client) SessionByUUID(uuid string) (map[string]interface{}, error) {
+	return c.session("uuid", uuid)
+}
+
+// Internal helper method which queries for a players session using a parameterName and a parameterValue. Returns a
+// map[string]interface{} or nil.
+func(c *Client) session(parameterName string, parameterValue string) (map[string]interface{}, error) {
+	result := &SessionResponse{}
+	err := c.Query("session", map[string]string{ parameterName: parameterValue }, result)
+
+	if err != nil {
+		return nil, err
+	} else if result.Success == false {
+		return nil, errors.New(result.Cause)
+	}
+	return result.Session, nil
+}
