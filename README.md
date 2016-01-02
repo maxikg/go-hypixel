@@ -18,7 +18,7 @@ statistics:
 
 ```go
 client := hypixel.NewClient("your-api-key", nil)
-profile, err := client.Key("952d258fc0fa49df844e745131367a98")
+profile, err := client.KeyInfo()
 ```
 
 ## ToDo
