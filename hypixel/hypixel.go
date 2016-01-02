@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	defaultBaseUrl = "https://api.hypixel.net/"
+	defaultBaseURL = "https://api.hypixel.net/"
 	userAgent      = "go-hypixel/0.1 (see https://github.com/maxikg/go-hypixel)"
 )
 
@@ -19,10 +19,10 @@ type Client struct {
 	client    *http.Client
 
 	// The base url of the API requests. Default to the Hypixel API.
-	BaseUrl   string
+	BaseURL   string
 
 	// The api key.
-	ApiKey    string
+	APIKey    string
 
 	// The user agent. Default to "go-hypixel/0.1 (see https://github.com/maxikg/go-hypixel)".
 	UserAgent string
@@ -34,13 +34,13 @@ func NewClient(key string, httpClient *http.Client) *Client {
 		httpClient = http.DefaultClient
 	}
 
-	return &Client{client: httpClient, BaseUrl: defaultBaseUrl, UserAgent: userAgent, ApiKey: key}
+	return &Client{client: httpClient, BaseURL: defaultBaseURL, UserAgent: userAgent, APIKey: key}
 }
 
 // CreateRequest creates an http.Request for querying the API. method specify which method should be called. Optional
 // a map can be provided for additional parameters.
 func(c *Client) CreateRequest(method string, params map[string]string) (*http.Request, error) {
-	url := c.BaseUrl + method + "?key=" + c.ApiKey
+	url := c.BaseURL + method + "?key=" + c.APIKey
 	if params != nil {
 		for key, value := range params {
 			url += "&" + html.EscapeString(key) + "=" + html.EscapeString(value)
