@@ -130,3 +130,43 @@ func(c *Client) findGuild(parameterName string, parameterValue string) (string, 
 	}
 	return result.Guild, nil
 }
+
+// Query friends of the player name.
+func(c *Client) FriendsByName(name string) ([]*Friend, error) {
+	return c.friends("player", name)
+}
+
+// Query friends of the player uuid.
+func(c *Client) FriendsByUUID(uuid string) ([]*Friend, error) {
+	return c.friends("uuid", uuid)
+}
+
+// Internal helper method which queries for friends using a parameterName and a parameterValue. Returns an array of
+// *Friend or nil.
+func(c *Client) friends(parameterName string, parameterValue string) ([]*Friend, error) {
+	req, err := c.CreateRequest("friends", map[string]string{ parameterName: parameterValue })
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := c.client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	result := &FriendsResponse{}
+	err = json.Unmarshal(body, &result)
+	if err != nil {
+		return nil, err
+	}
+
+	if result.Success == false {
+		return nil, errors.New(result.Cause)
+	}
+	return result.Records, nil
+}

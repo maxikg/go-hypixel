@@ -23,3 +23,21 @@ type GuildIdResponse struct {
 	Cause   string   `json:"cause"`
 	Success bool     `json:"success"`
 }
+
+// FriendsResponse is the bare response of the API containing maybe an array of friends, maybe a cause and a bool
+// determine if the request was successful.
+type FriendsResponse struct {
+	Records []*Friend `json:"records"`
+	Cause   string    `json:"cause"`
+	Success bool      `json:"success"`
+}
+
+// Friend contains the information of a /friends records entry.
+type Friend struct {
+	ID 		     string `json:"_id"`
+	Receiver     string `json:"receiver"`
+	Sender       string `json:"sender"`
+	UUIDReceiver string `json:"uuidReceiver"`
+	UUIDSender   string `json:"uuidSender"`
+	Started      int64  `json:"started"`
+}

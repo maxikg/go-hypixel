@@ -28,7 +28,6 @@ profile, err := client.KeyInfo()
 
 ## ToDo
 
- * Implementing friends
  * Implementing guild
  * Implementing player
  * Implementing session
