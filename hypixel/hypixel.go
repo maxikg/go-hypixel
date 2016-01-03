@@ -58,7 +58,7 @@ func(c *Client) CreateRequest(method string, params map[string]string) (*http.Re
 
 // Query queries the remote API for a specified method, an optional map of parameters and an instance of a struct in
 // which the response will be deserialized.
-func(c *Client) Query(method string, parameters map[string]string, result interface{}) (error) {
+func(c *Client) Query(method string, parameters map[string]string, result interface{}) error {
 	req, err := c.CreateRequest(method, parameters)
 	if err != nil {
 		return err
@@ -90,17 +90,19 @@ func(c *Client) KeyInfo() (map[string]interface{}, error) {
 	return result.Record, nil
 }
 
-// Find a guild id by an name of a guilds member. Returns an empty string as the id if no guild data is available.
+// FindGuildByPlayer finds a guild id by an name of a guilds member. Returns an empty string as the id if no guild data
+// is available.
 func(c *Client) FindGuildByPlayer(player string) (string, error) {
 	return c.findGuild("byPlayer", player)
 }
 
-// Find a guild id by an uuid of a guilds member. Returns an empty string as the id if no guild data is available.
-func(c *Client) FindGuildByUuid(uuid string) (string, error) {
+// FindGuildByUUID finds a guild id by an uuid of a guilds member. Returns an empty string as the id if no guild data is
+// available.
+func(c *Client) FindGuildByUUID(uuid string) (string, error) {
 	return c.findGuild("byUuid", uuid)
 }
 
-// Find a guild id by the guilds name. Returns an empty string as the id if no guild data is available.
+// FindGuildByName finds a guild id by the guilds name. Returns an empty string as the id if no guild data is available.
 func(c *Client) FindGuildByName(name string) (string, error) {
 	return c.findGuild("byName", name)
 }
@@ -108,7 +110,7 @@ func(c *Client) FindGuildByName(name string) (string, error) {
 // Internal helper method which queries for guild information using a parameterName and a parameterValue. Returns an
 // empty string as the id if no guild data is available.
 func(c *Client) findGuild(parameterName string, parameterValue string) (string, error) {
-	result := &GuildIdResponse{}
+	result := &GuildIDResponse{}
 	err := c.Query("findGuild", map[string]string{ parameterName: parameterValue }, result)
 	if err != nil {
 		return "", err
@@ -118,7 +120,7 @@ func(c *Client) findGuild(parameterName string, parameterValue string) (string, 
 	return result.Guild, nil
 }
 
-// Query a guild by its id. Returns nil if no guild with this id is known.
+// Guild queries a guilds information by its id. Returns nil if no guild with this id is known.
 func(c *Client) Guild(id string) (map[string]interface{}, error) {
 	result := &GuildResponse{}
 	err := c.Query("guild", map[string]string{ "id": id }, result)
@@ -130,12 +132,12 @@ func(c *Client) Guild(id string) (map[string]interface{}, error) {
 	return result.Guild, nil
 }
 
-// Query friends of the player name.
+// FriendsByName queries friends of the player name.
 func(c *Client) FriendsByName(name string) ([]map[string]interface{}, error) {
 	return c.friends("player", name)
 }
 
-// Query friends of the player uuid.
+// FriendsByUUID queries friends of the player uuid.
 func(c *Client) FriendsByUUID(uuid string) ([]map[string]interface{}, error) {
 	return c.friends("uuid", uuid)
 }
@@ -154,12 +156,12 @@ func(c *Client) friends(parameterName string, parameterValue string) ([]map[stri
 	return result.Records, nil
 }
 
-// Query a player by its name.
+// PlayerByName queries a player by its name.
 func(c *Client) PlayerByName(name string) (map[string]interface{}, error) {
 	return c.player("name", name)
 }
 
-// Query a player by its uuid.
+// PlayerByUUID queries a player by its uuid.
 func(c *Client) PlayerByUUID(uuid string) (map[string]interface{}, error) {
 	return c.player("uuid", uuid)
 }
@@ -177,12 +179,12 @@ func(c *Client) player(parameterName string, parameterValue string) (map[string]
 	return result.Player, nil
 }
 
-// Query a players session by its name.
+// SessionByName queries a players session by its name.
 func(c *Client) SessionByName(name string) (map[string]interface{}, error) {
 	return c.session("player", name)
 }
 
-// Query a players session by its uuid.
+// SessionByUUID queries a players session by its uuid.
 func(c *Client) SessionByUUID(uuid string) (map[string]interface{}, error) {
 	return c.session("uuid", uuid)
 }
