@@ -8,7 +8,7 @@ type KeyInfoResponse struct {
 	Success bool                   `json:"success"`
 }
 
-// GuildIdResponse is the bare response of the API containing maybe a guild id, maybe a cause and a bool determine if
+// GuildIDResponse is the bare response of the API containing maybe a guild id, maybe a cause and a bool determine if
 // the request was successful.
 type GuildIDResponse struct {
 	Guild	string   `json:"guild"`
