@@ -47,6 +47,7 @@ profile, err := client.KeyInfo()
 
 ## ToDo
 
+ * Add game type values
  * Add tests
 
 ## License
