@@ -52,5 +52,5 @@ profile, err := client.KeyInfo()
 
 ## License
 
-This library is distributed under the GNU General Public License version 3. A copy is shipped within the
+This library is distributed under the Apache License 2.0. A copy is shipped within the
 [LICENSE.txt](/LICENSE.txt) file.
